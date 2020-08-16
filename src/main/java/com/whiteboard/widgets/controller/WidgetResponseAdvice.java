@@ -3,6 +3,7 @@ package com.whiteboard.widgets.controller;
 import com.whiteboard.widgets.service.RateLimiterService;
 import com.whiteboard.widgets.util.Constants;
 import com.whiteboard.widgets.util.Operation;
+import lombok.RequiredArgsConstructor;
 import org.springframework.core.MethodParameter;
 import org.springframework.http.MediaType;
 import org.springframework.http.converter.HttpMessageConverter;
@@ -13,13 +14,10 @@ import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseBodyAdvice;
 
 @ControllerAdvice(assignableTypes = {WidgetController.class})
+@RequiredArgsConstructor
 public class WidgetResponseAdvice implements ResponseBodyAdvice<Object> {
 
     private final RateLimiterService rateLimiterService;
-
-    public WidgetResponseAdvice(RateLimiterService rateLimiterService) {
-        this.rateLimiterService = rateLimiterService;
-    }
 
     @Override
     public boolean supports(MethodParameter returnType, Class<? extends HttpMessageConverter<?>> converterType) {

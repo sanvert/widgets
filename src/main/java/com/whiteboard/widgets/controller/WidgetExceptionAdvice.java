@@ -4,6 +4,7 @@ import com.whiteboard.widgets.service.RateLimiterService;
 import com.whiteboard.widgets.util.Constants;
 import com.whiteboard.widgets.util.Operation;
 import io.github.resilience4j.ratelimiter.RequestNotPermitted;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -13,13 +14,10 @@ import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
 @ControllerAdvice(assignableTypes = {WidgetController.class})
+@RequiredArgsConstructor
 public class WidgetExceptionAdvice extends ResponseEntityExceptionHandler {
 
     private final RateLimiterService rateLimiterService;
-
-    public WidgetExceptionAdvice(RateLimiterService rateLimiterService) {
-        this.rateLimiterService = rateLimiterService;
-    }
 
     @ExceptionHandler({ RequestNotPermitted.class })
     public ResponseEntity<Object> handleTimeoutException(Exception ex, WebRequest request) {

@@ -69,13 +69,14 @@ public class WidgetStore {
 
     private synchronized void positionWidgetAndUpdateZ(Widget widget, Integer newZ) {
         if (newZ == null) {
-            Integer newKey = widgetsSortedByZ.isEmpty() ? 0 : widgetsSortedByZ.lastKey() + 1;
-            widget.setZ(newKey);
+            newZ = widgetsSortedByZ.isEmpty() ? 0 : widgetsSortedByZ.lastKey() + 1;
         } else if (widgetsSortedByZ.containsKey(newZ) && !widget.equals(widgetsSortedByZ.get(newZ))) {
             shiftWidgetsHavingLargerKeys(newZ);
             widgetsSortedByZ.remove(widget.getZ());
-            widget.setZ(newZ);
+        } else {
+            widgetsSortedByZ.remove(widget.getZ());
         }
+        widget.setZ(newZ);
         widgetsSortedByZ.put(widget.getZ(), widget);
     }
 

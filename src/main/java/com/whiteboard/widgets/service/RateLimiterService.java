@@ -20,7 +20,7 @@ public class RateLimiterService {
         RateLimiterConfig defaultConfig = RateLimiterConfig.custom()
             .timeoutDuration(Duration.ZERO)
             .limitRefreshPeriod(Duration.ofMinutes(1))
-            .limitForPeriod(5).build();
+            .limitForPeriod(250).build();
         this.registry = RateLimiterRegistry.of(defaultConfig);
     }
 
